@@ -9,21 +9,21 @@ AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACESS_KEY
 })
 
-// Create an Polly client
 const Polly = new AWS.Polly({
   signatureVersion: 'v4',
   region: 'us-east-1'
 })
 
 let params = {
-  'Text': 'Cuida, que hoje é sexta-feira dia de fazer deploy sem QA.',
+  'Text': 'A sigla REST, em português, significa “Transferência de Estado Representacional”. Concebido como uma abstração da arquitetura da web, trata-se de um conjunto de princípios e definições necessários para a criação de um projeto com interfaces bem definidas',
   'OutputFormat': 'mp3',
-  'VoiceId': 'Camila'
+  'TextType': 'text',
+  'VoiceId': 'Camila',
+  'Engine': 'neural'
 }
 
 Polly.synthesizeSpeech(params, (err, data) => {
   if (err) {
-    console.log(err.code)
   } else if (data) {
     if (data.AudioStream instanceof Buffer) {
       Fs.writeFile("./speech.mp3", data.AudioStream, function (err) {
